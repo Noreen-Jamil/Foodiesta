@@ -109,21 +109,31 @@ const ListOfRecipes = (props) => {
   const [rangeTo, updateRangeTo] = useState("");
   const [filteredList, updateFilteredList] = useState([]);
   const [filterNutritionType, updateFilterNutritionType] = useState("all");
+  const [category , updateCategory] = useState("all");
   let filterListOfRecipes = [];
+
+  const categorySelected = (e) => {
+    updateCategory(e.target.value);
+    let filterList = filteredList.filter( recipe => {
+      if(recipe.dishType.includes(e.target.value)){
+        return recipe;
+      } 
+    });
+    updateFilteredList([...filterList]);
+  }
 
   const filterList = (e) => {
     updateRangeFrom("");
     updateRangeTo("");
     updateFilteredList([...recipies]);
-
     updateFilterNutritionType(e.target.value);
   };
 
   const ListUpdatedWithRangeFrom = (e) => {
     updateRangeFrom(e.target.value);
-
+   
     if (rangeTo !== "") {
-      rangeToFunc(e.target.value);
+      rangeToFunc(e.target.value,rangeTo);
     } else {
       rangeFromFunc(e.target.value);
     }
@@ -131,6 +141,7 @@ const ListOfRecipes = (props) => {
   const rangeFromFunc = (value) => {
     nutritions.forEach((nutrition) => {
       if (parseInt(nutrition.data[filterNutritionType]) >= value) {
+      
         let filterRecipes = recipies.filter((recipe) => {
           if (recipe.id === nutrition.id) {
             return recipe;
@@ -142,18 +153,22 @@ const ListOfRecipes = (props) => {
     updateFilteredList([...filterListOfRecipes]);
   };
 
-  const rangeToFunc = (value) => {
-    console.log(rangeFrom);
+  const rangeToFunc = (from, to) => {
+    
     nutritions.forEach((nutrition) => {
       if (
-        parseInt(nutrition.data[filterNutritionType]) >= rangeFrom &&
-        parseInt(nutrition.data[filterNutritionType]) <= value
+        parseInt(nutrition.data[filterNutritionType]) >= from &&
+        parseInt(nutrition.data[filterNutritionType]) <= to
       ) {
-        let filterRecipes = recipies.filter((recipe) => {
+       
+        let filterRecipes =recipies.filter((recipe) => {
+         
           if (recipe.id === nutrition.id) {
+           
             return recipe;
           }
         });
+       
         filterListOfRecipes.push(filterRecipes[0]);
       }
     });
@@ -162,7 +177,7 @@ const ListOfRecipes = (props) => {
   const listUpdatedWithRangeTo = (e) => {
     updateRangeTo(e.target.value);
     if (e.target.value !== "") {
-      rangeToFunc(e.target.value);
+      rangeToFunc(rangeFrom , e.target.value);
     } else {
       rangeFromFunc(rangeFrom);
     }
@@ -206,8 +221,7 @@ const ListOfRecipes = (props) => {
         })
       : updateRecipies(JSON.parse(localStorage.getItem("recipiesArray")));
     updateNutritions(JSON.parse(localStorage.getItem("nutritionsArray")));
-    // localStorage.removeItem("recipiesArray");
-    // localStorage.removeItem("nutritionsArray");
+   updateFilteredList(JSON.parse(localStorage.getItem("recipiesArray")));
   }, []);
 
   return (
@@ -258,76 +272,30 @@ const ListOfRecipes = (props) => {
 
           <div>
             <span className="filter-span-text">Filter by Category : </span>
-            <select className="select-nutrition-type select-category">
+            <select className="select-nutrition-type select-category" value={category} onChange={ (e) =>{categorySelected(e)}}
+            >
               <option value="all">All</option>
               <option value="breakfast">Breakfast</option>
+              <option value="brunch">Brunch</option>
               <option value="lunch">Lunch</option>
               <option value="dinner">Dinner</option>
-              <option value="sideDish">Side Dish</option>
+              <option value="side dish">Side Dish</option>
               <option value="dessert">Dessert</option>
               <option value="soup">Soup</option>
-              <option value="soup">Salad</option>
+              <option value="salad">Salad</option>
             </select>
           </div>
         </div>
       </div>
       <ul id="list-container">
-        {filteredList.length === 0 && filterNutritionType === "all"
-          ? recipies.map((recipe, index) => {
+    
+          { filteredList.map((recipe, index) => {
+           
               let desiredNutritions = nutritions.filter((nutrition) => {
                 if (nutrition.id === recipe.id) {
                   return nutrition.data;
                 }
               });
-              return (
-                <li
-                  key={index}
-                  onClick={() => {
-                    props.onSelectItem(recipies[index], desiredNutritions);
-                  }}
-                  className="recipe-list"
-                >
-                  <Link to="/recipeDetails">
-                    <div className="main-info">
-                      <h5 className="recipe-name">{recipe.title}</h5>
-                      <small className="recipe-id">{recipe.id}</small>
-                    </div>
-                    <div className="detail-container">
-                      <img
-                        className="image-of-dish"
-                        src={recipe.image}
-                        alt={recipe.title}
-                      />
-                      <div className="dish-details">
-                        <span>Ready In Minutes : {recipe.readyInMinutes} </span>
-                        <span> Servings : {recipe.servings}</span>
-                        <span> Health Score : {recipe.healthScore} </span>
-                        {recipe.dishType.length !== 0 ? (
-                          <span>Dish Type : {recipe.dishType}</span>
-                        ) : null}
-                      </div>
-                      <div className="dish-details">
-                        <span>
-                          calories : {desiredNutritions[0].data.calories}
-                        </span>
-                        <span> carbs : {desiredNutritions[0].data.carbs} </span>
-                        <span>
-                          Proteins : {desiredNutritions[0].data.protein}
-                        </span>
-                        <span> Fats : {desiredNutritions[0].data.fat} </span>
-                      </div>
-                    </div>
-                  </Link>
-                </li>
-              );
-            })
-          : filteredList.map((recipe, index) => {
-              let desiredNutritions = nutritions.filter((nutrition) => {
-                if (nutrition.id === recipe.id) {
-                  return nutrition.data;
-                }
-              });
-
               return (
                 <li
                   key={index}
@@ -352,7 +320,7 @@ const ListOfRecipes = (props) => {
                         <span> Servings : {recipe.servings}</span>
                         <span> Health Score : {recipe.healthScore} </span>
                         {recipe.dishType.length !== 0 ? (
-                          <span>Dish Type : {recipe.dishType}</span>
+                          <span>Dish Type : {recipe.dishType.map(dishtype => dishtype).join(" ")}</span>
                         ) : null}
                       </div>
                       <div className="dish-details">
@@ -369,7 +337,9 @@ const ListOfRecipes = (props) => {
                   </Link>
                 </li>
               );
-            })}
+            }) 
+          }}
+     
       </ul>
     </div>
   );

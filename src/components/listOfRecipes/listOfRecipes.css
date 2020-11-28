@@ -120,6 +120,7 @@ input::-webkit-inner-spin-button {
 #filter-by-nutrition-container {
   width: 50%;
   display: flex;
+  flex-wrap:wrap;
 }
 .recipe-list {
   width: 100%;
