@@ -1,0 +1,207 @@
+:root {
+  --purple-color: #4d2d52;
+  --pink-color: #893168;
+  --white-color-light: #fbfbfb;
+  --main-heading-title: "Sansita Swashed", cursive;
+  --text-main: "Baloo 2", cursive;
+}
+body {
+  background-color: #212121;
+}
+a {
+  text-decoration: none;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.list-group {
+  background-color: #212121;
+}
+#heading-and-filter-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 40px;
+  margin: 30px 0 20px;
+  padding: 5px 0 20px;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  background-color: #212121;
+}
+.range-input {
+  width: 50px;
+  margin-right: 10px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid grey;
+  padding-left: 5px;
+  color: grey;
+  background-color: #212121;
+  border-bottom: 1px solid white;
+  color: white;
+}
+#list-title {
+  color: var(--pink-color);
+  font-size: 35px;
+  margin: 0 20px 5px;
+  font-family: var(--text-main);
+  font-weight: bold;
+  color: var(--orange);
+}
+.recipe-name {
+  color: var(--purple-color);
+  font-family: var(--text-main);
+  font-weight: 600;
+  font-size: 25px;
+  margin: 0;
+  color: var(--white-color-light) !important;
+}
+.recipe-id {
+  color: grey;
+  font-size: 16px;
+}
+
+.select-nutrition-type {
+  padding: 3px 10px;
+  border: 1px solid var(--purple-color);
+  background-color: var(--white-color-light);
+  /* background-color: var(--golden); */
+  font-family: var(--text-main);
+  /* border: none; */
+  border-radius: 2px;
+  margin: 0 15px;
+  outline: none;
+}
+
+#range-from-input {
+  margin-left: 10px;
+}
+.filter-span-text {
+  color: var(--purple-color);
+  font-family: var(--text-main);
+  font-weight: 600;
+  color: var(--white-color-light);
+}
+.main-info {
+  display: flex;
+  padding: 15px 30px;
+  justify-content: space-between;
+  align-items: center;
+}
+.image-of-dish {
+  width: 100px;
+  height: 80px;
+  margin: 0 2vw 20px;
+  border-radius: 5px;
+  box-shadow: 7px 7px 10px black;
+}
+
+.dish-details span {
+  font-size: 14px;
+  font-family: var(--text-main);
+  color: var(--pink-color);
+  color: var(--white-color-light);
+}
+.detail-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+#filter-container {
+  margin-left: 20px;
+  display: flex;
+  width: 90%;
+  justify-content: space-around;
+}
+#filter-by-nutrition-container {
+  width: 50%;
+  display: flex;
+}
+.recipe-list {
+  width: 100%;
+  background-color: var(--pink-color);
+  background-color: var(--orange);
+  margin-top: 25px;
+  box-shadow: 10px 10px 10px;
+}
+.recipe-list:hover {
+  background-color: var(--white-color-light);
+
+  /* border: 1px solid var(--white-color-light); */
+}
+.recipe-list:hover .dish-details span {
+  color: var(--orange);
+}
+.recipe-list:hover .recipe-name {
+  color: var(--orange) !important;
+}
+.dish-details {
+  display: flex;
+  flex-direction: column;
+  margin-right: 40px;
+  margin-bottom: 10px;
+  width: 20%;
+}
+
+#list-container {
+  margin: 0 10%;
+  list-style-type: none;
+
+  /* box-shadow: 7px -2px 12px #979792; */
+}
+
+@media only screen and (max-width: 768px) {
+  #heading-and-filter-container {
+    align-items: flex-start;
+    flex-direction: column;
+    padding-bottom: 40px;
+    margin: 40px 0 0;
+  }
+  #filter-container {
+    margin-left: 20px;
+    justify-content: space-around;
+  }
+  #filter-by-nutrition-container {
+    width: 100%;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  .select-category {
+    margin-top: 20px;
+  }
+  .main-info {
+    flex-direction: column;
+    padding: 15px;
+    align-items: flex-start;
+  }
+  .detail-container {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 3vw;
+  }
+  .dish-details {
+    width: 100%;
+  }
+
+  .pic-of-dish {
+    margin: 0 1vw;
+  }
+}
+@media only screen and (max-width: 600px) {
+  #list-title {
+    margin-left: 20px;
+  }
+  #filter-container {
+    flex-direction: column;
+  }
+  #range-container {
+    margin-top: 10px;
+  }
+  #list-container {
+    padding: 0 !important;
+  }
+}

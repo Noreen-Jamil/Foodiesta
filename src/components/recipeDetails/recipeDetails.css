@@ -1,0 +1,156 @@
+:root {
+  --purple-color: #4d2d52;
+  --pink-color: #893168;
+  --white-color-light: #fbfbfb;
+  --main-heading-title: "Sansita Swashed", cursive;
+  --text-main: "Baloo 2", cursive;
+  --heading-main: "Texturina", serif;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.recipe-title {
+  color: var(--golden);
+  font-family: var(--text-main);
+  font-weight: 600;
+  /* color: var(--white-color-light); */
+  font-size: 35px;
+  padding: 20px 0;
+}
+#dish-image-and-details {
+  display: flex;
+  justify-content: space-between;
+}
+#preperation-and-nutritions-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.prep-nut-ing-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 40px;
+  width: 60%;
+}
+.prepeartion-details {
+  margin-right: 20px !important;
+  color: var(--golden);
+}
+.pic-of-dish {
+  width: 400px;
+  height: 400px;
+  border-radius: 10px;
+  box-shadow: 7px 7px 10px;
+  margin-top: 70px;
+  position: absolute;
+  right: 4%;
+}
+.dish-detail-container {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+  width: 100%;
+}
+.dish-detail-container > div {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin: 5px 0;
+}
+.main-headings {
+  font-family: var(--heading-main);
+  font-size: 25px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--orange);
+  letter-spacing: 1px;
+  text-shadow: 1px 1px;
+}
+.dish-detail-container > div > h3 {
+  font-family: var(--text-main);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--golden);
+}
+
+.dish-detail-container > div > span,
+#instructions {
+  font-size: 16px;
+  margin: 0 10px;
+  font-family: var(--text-main);
+  color: var(--white-color-light);
+}
+.main-recipe-container {
+  display: flex;
+  align-items: center;
+}
+.detail-recipe-list {
+  width: 100%;
+  padding: 0 30px;
+  background-color: var(--white-color-light);
+  background-color: #212121;
+}
+
+#list-container {
+  padding: 0 40px;
+}
+#ingredients-list-container {
+  display: flex;
+  align-items: flex-start;
+}
+#ingredients-ul > li {
+  color: var(--pink-color);
+  list-style-type: decimal;
+  margin-left: 30px;
+  color: var(--white-color-light);
+}
+#ingredients-ul > li > span {
+  margin-right: 4px;
+}
+#instruction-container {
+  margin: 40px 0 40px 40px;
+  width: 60%;
+}
+@media only screen and (max-width: 768px) {
+  .image-recipe {
+    width: 80vw;
+    height: auto;
+    margin: 10px 2vw;
+  }
+  .dish-detail-container > div {
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 5px 0;
+  }
+  .detail-recipe-list {
+    padding: 0 10px;
+  }
+  .pic-of-dish {
+    width: 80%;
+    border-radius: 10px;
+    box-shadow: 7px 7px 10px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    position: relative;
+    left: 5vw;
+  }
+  #dish-image-and-details {
+    flex-direction: column-reverse;
+    justify-content: space-between;
+  }
+  .prep-nut-ing-container {
+    margin-left: 20px;
+    width: 100%;
+  }
+  #instruction-container {
+    margin-left: 20px;
+    width: 80%;
+  }
+  #preperation-and-nutritions-container {
+    flex-wrap: wrap;
+  }
+}
