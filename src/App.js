@@ -21,7 +21,7 @@ export default function App() {
   
   return (
     <BrowserRouter>
-        <Route path="/foodiesta" exact>
+        <Route path="/" exact>
           <Welcome headerState={headerState} />
         </Route>
         {headerDisplay === "false" ? null : <Header />}
