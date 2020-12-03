@@ -227,7 +227,7 @@ const ListOfRecipes = (props) => {
 
  
   useEffect(() => {
-    JSON.parse(localStorage.getItem("recipiesArray")) === null
+    JSON.parse(localStorage.getItem("recipesArray")) === null
       ? allRecipiesIds.forEach((id) => {
           getRecipies(id).then((data) => {
             let recipeInfo = {
@@ -245,7 +245,7 @@ const ListOfRecipes = (props) => {
             getRecipe.push(recipeInfo);
             updateRecipies([...getRecipe]);
             localStorage.setItem(
-              "recipiesArray",
+              "recipesArray",
               JSON.stringify([...getRecipe])
             );
           });
@@ -257,14 +257,14 @@ const ListOfRecipes = (props) => {
             allNutritions.push(nutritions);
             updateNutritions([...allNutritions]);
             localStorage.setItem(
-              "nutritionsArray",
+              "nutritionArray",
               JSON.stringify([...allNutritions])
             );
           });
         })
-      : updateRecipies(JSON.parse(localStorage.getItem("recipiesArray")));
-    updateNutritions(JSON.parse(localStorage.getItem("nutritionsArray")));
-   updateFilteredList(JSON.parse(localStorage.getItem("recipiesArray")));
+      : updateRecipies(JSON.parse(localStorage.getItem("recipesArray")));
+    updateNutritions(JSON.parse(localStorage.getItem("nutritionArray")));
+   updateFilteredList(JSON.parse(localStorage.getItem("recipesArray")));
   }, []);
 
   return (
