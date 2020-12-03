@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/foodiesta/static/css/main.2dde738e.chunk.css",
-    "main.js": "/foodiesta/static/js/main.6b418c67.chunk.js",
-    "main.js.map": "/foodiesta/static/js/main.6b418c67.chunk.js.map",
+    "main.js": "/foodiesta/static/js/main.1a014ef7.chunk.js",
+    "main.js.map": "/foodiesta/static/js/main.1a014ef7.chunk.js.map",
     "runtime-main.js": "/foodiesta/static/js/runtime-main.380e9f1f.js",
     "runtime-main.js.map": "/foodiesta/static/js/runtime-main.380e9f1f.js.map",
     "static/js/2.905b6621.chunk.js": "/foodiesta/static/js/2.905b6621.chunk.js",
@@ -21,6 +21,6 @@
     "static/js/runtime-main.380e9f1f.js",
     "static/js/2.905b6621.chunk.js",
     "static/css/main.2dde738e.chunk.css",
-    "static/js/main.6b418c67.chunk.js"
+    "static/js/main.1a014ef7.chunk.js"
   ]
 }
