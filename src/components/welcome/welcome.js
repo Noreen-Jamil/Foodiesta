@@ -14,6 +14,7 @@ const Welcome = ({ headerState }) => {
         <h1 id="logo-heading">Foodiesta</h1>
         <h5 className="welcome-description ">Home of Recipies.</h5>
         <img id="main-backImg" src={foodiesta} alt="backImage" />
+      
         <Options />
       </div>
       <About />

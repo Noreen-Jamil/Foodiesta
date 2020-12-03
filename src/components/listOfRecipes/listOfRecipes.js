@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import "./listOfRecipes.css";
 
 const ListOfRecipes = (props) => {
+  //to show header if listOf Recipe components mounts
   props.headerState("true");
   const allRecipiesIds = [
     639779,
@@ -70,7 +71,6 @@ const ListOfRecipes = (props) => {
     664488,
     715407,
     655098,
-    646906,
     797177,
     716377,
     665303,
@@ -111,78 +111,121 @@ const ListOfRecipes = (props) => {
   const [filterNutritionType, updateFilterNutritionType] = useState("all");
   const [category , updateCategory] = useState("all");
   let filterListOfRecipes = [];
+  let categoryFilterList = []; //category filtered list variable
+
 
   const categorySelected = (e) => {
     updateCategory(e.target.value);
-    let filterList = filteredList.filter( recipe => {
-      if(recipe.dishType.includes(e.target.value)){
-        return recipe;
-      } 
-    });
-    updateFilteredList([...filterList]);
+    if(e.target.value === "all" && filterNutritionType === "all"){
+      updateFilteredList([...recipies]);
+    }else if(e.target.value === "all" && filterNutritionType !== "all"){
+     rangeToFunc(rangeFrom , rangeTo , e.target.value);
+    }else{
+      categoryFilterList = recipies.filter( recipe => {
+            if(recipe.dishType.includes(e.target.value)){
+              return recipe;
+            } 
+          });
+          filterNutritionType === "all" ? updateFilteredList([...categoryFilterList]) : filteredListUpdate(e.target.value);
+    }
   }
 
+  //below fiunction will be called if nutrition type value is not "all". and user selected category type "all".
+  // this function will show list a/c to nutrition type selected before selecting category.
+  const filteredListUpdate = (e) =>{
+   rangeToFunc(rangeFrom,rangeTo ,e); 
+  }
+
+//filter list on selection of nutrition type
   const filterList = (e) => {
     updateRangeFrom("");
     updateRangeTo("");
-    updateFilteredList([...recipies]);
+    console.log(category);
+    if(category === "all"){
+      updateFilteredList([...recipies]);
+    }
     updateFilterNutritionType(e.target.value);
   };
 
+
+  // update list of nutrition a/c to range from
   const ListUpdatedWithRangeFrom = (e) => {
     updateRangeFrom(e.target.value);
-   
+    
     if (rangeTo !== "") {
-      rangeToFunc(e.target.value,rangeTo);
+      rangeToFunc(e.target.value,rangeTo, category);
     } else {
       rangeFromFunc(e.target.value);
     }
   };
-  const rangeFromFunc = (value) => {
-    nutritions.forEach((nutrition) => {
-      if (parseInt(nutrition.data[filterNutritionType]) >= value) {
-      
-        let filterRecipes = recipies.filter((recipe) => {
-          if (recipe.id === nutrition.id) {
-            return recipe;
-          }
-        });
-        filterListOfRecipes.push(filterRecipes[0]);
-      }
-    });
-    updateFilteredList([...filterListOfRecipes]);
-  };
 
-  const rangeToFunc = (from, to) => {
-    
-    nutritions.forEach((nutrition) => {
-      if (
-        parseInt(nutrition.data[filterNutritionType]) >= from &&
-        parseInt(nutrition.data[filterNutritionType]) <= to
-      ) {
-       
-        let filterRecipes =recipies.filter((recipe) => {
-         
-          if (recipe.id === nutrition.id) {
-           
-            return recipe;
-          }
-        });
-       
-        filterListOfRecipes.push(filterRecipes[0]);
-      }
-    });
-    updateFilteredList([...filterListOfRecipes]);
-  };
+   // update list of nutrition a/c to range to
   const listUpdatedWithRangeTo = (e) => {
     updateRangeTo(e.target.value);
     if (e.target.value !== "") {
-      rangeToFunc(rangeFrom , e.target.value);
+      rangeToFunc(rangeFrom , e.target.value,category);
     } else {
       rangeFromFunc(rangeFrom);
     }
   };
 
+  const rangeFromFunc = (value) => {
+    let filterRecipes = [];
+
+    nutritions.forEach((nutrition) => {
+      if (parseInt(nutrition.data[filterNutritionType]) >= value) {
+        if(category !== "all"){
+          filterRecipes = recipies.filter((recipe) => {
+            if (recipe.id === nutrition.id && recipe.dishType.includes(category)) {
+              return recipe;
+            }
+          });
+          
+        }else{
+            filterRecipes = recipies.filter((recipe) => {
+              if (recipe.id === nutrition.id) {
+                return recipe;
+              }
+            });
+          }
+          if(filterRecipes.length !== 0){
+            filterListOfRecipes.push(filterRecipes[0]);
+          }
+      }
+    });
+    updateFilteredList([...filterListOfRecipes]);
+  };
+
+  const rangeToFunc = (from, to, e) => {
+    let filterRecipes = [];
+    nutritions.forEach((nutrition) => {
+      if (
+        parseInt(nutrition.data[filterNutritionType]) >= from &&
+        parseInt(nutrition.data[filterNutritionType]) <= to
+      ) {
+        console.log(e);
+        if(e !== "all" ){
+          filterRecipes = recipies.filter((recipe) => {
+            if (recipe.id === nutrition.id && recipe.dishType.includes(e)) {
+              return recipe;
+            }
+          });
+        }else{
+          filterRecipes = recipies.filter((recipe) => {
+            if (recipe.id === nutrition.id) {
+              return recipe;
+            }
+          });
+        }
+        if(filterRecipes.length !== 0){
+          filterListOfRecipes.push(filterRecipes[0]);
+        }
+      }
+    });
+    updateFilteredList([...filterListOfRecipes]);
+  };
+
+ 
   useEffect(() => {
     JSON.parse(localStorage.getItem("recipiesArray")) === null
       ? allRecipiesIds.forEach((id) => {
@@ -288,7 +331,7 @@ const ListOfRecipes = (props) => {
         </div>
       </div>
       <ul id="list-container">
-    
+  
           { filteredList.map((recipe, index) => {
            
               let desiredNutritions = nutritions.filter((nutrition) => {
@@ -338,7 +381,7 @@ const ListOfRecipes = (props) => {
                 </li>
               );
             }) 
-          }}
+          }
      
       </ul>
     </div>
