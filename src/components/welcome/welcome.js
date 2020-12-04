@@ -13,7 +13,7 @@ const Welcome = ({ headerState }) => {
       <div id="welcome-container">
         <h1 id="logo-heading">Foodiesta</h1>
         <h5 className="welcome-description ">Home of Recipies.</h5>
-        <img id="main-backImg" src={foodiesta} alt="backImage" />
+        {/* <img id="main-backImg" src={foodiesta} alt="backImage" /> */}
       
         <Options />
       </div>

@@ -82,24 +82,24 @@ const ListOfRecipes = (props) => {
     715394,
     716370,
     645479,
-    633221,
-    715385,
-    654032,
-    716429,
-    633258,
-    633251,
-    647501,
-    652433,
-    716430,
-    648348,
-    639616,
-    631807,
-    643362,
-    640621,
-    634496,
-    645696,
-    646868,
-    645978
+    // 633221,
+    // 715385,
+    // 654032,
+    // 716429,
+    // 633258,
+    // 633251,
+    // 647501,
+    // 652433,
+    // 716430,
+    // 648348,
+    // 639616,
+    // 631807,
+    // 643362,
+    // 640621,
+    // 634496,
+    // 645696,
+    // 646868,
+    // 645978
   ];
   let getRecipe = [];
   let allNutritions = [];
@@ -331,7 +331,7 @@ const ListOfRecipes = (props) => {
         </div>
       </div>
       <ul id="list-container">
-  
+              {console.log(filteredList.length)}
           { filteredList.map((recipe, index) => {
            
               let desiredNutritions = nutritions.filter((nutrition) => {
