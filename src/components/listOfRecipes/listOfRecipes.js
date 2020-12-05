@@ -82,7 +82,7 @@ const ListOfRecipes = (props) => {
     715394,
     716370,
     645479,
-    // 633221,
+    633221
     // 715385,
     // 654032,
     // 716429,
@@ -112,7 +112,7 @@ const ListOfRecipes = (props) => {
   const [category , updateCategory] = useState("all");
   let filterListOfRecipes = [];
   let categoryFilterList = []; //category filtered list variable
-
+  const [errorMsg, updateErrorMsg] = useState("");
 
   const categorySelected = (e) => {
     updateCategory(e.target.value);
@@ -140,7 +140,6 @@ const ListOfRecipes = (props) => {
   const filterList = (e) => {
     updateRangeFrom("");
     updateRangeTo("");
-    console.log(category);
     if(category === "all"){
       updateFilteredList([...recipies]);
     }
@@ -203,7 +202,6 @@ const ListOfRecipes = (props) => {
         parseInt(nutrition.data[filterNutritionType]) >= from &&
         parseInt(nutrition.data[filterNutritionType]) <= to
       ) {
-        console.log(e);
         if(e !== "all" ){
           filterRecipes = recipies.filter((recipe) => {
             if (recipe.id === nutrition.id && recipe.dishType.includes(e)) {
@@ -223,8 +221,15 @@ const ListOfRecipes = (props) => {
       }
     });
     updateFilteredList([...filterListOfRecipes]);
+    displayErrorMessage(from,to);
   };
-
+ const displayErrorMessage = (from,to) => {
+   if(from > to){
+    updateErrorMsg("Invalid range");
+   }else if(from <= to && filterListOfRecipes.length === 0){
+    updateErrorMsg("No recipe in this range");
+   }
+ }
  
   useEffect(() => {
     JSON.parse(localStorage.getItem("recipesArray")) === null
@@ -330,10 +335,11 @@ const ListOfRecipes = (props) => {
           </div>
         </div>
       </div>
+              {console.log(errorMsg)}
+        { filteredList.length === 0 ? <p id="error-msg">{errorMsg}</p> : null}
+    
       <ul id="list-container">
-              {console.log(filteredList.length)}
           { filteredList.map((recipe, index) => {
-           
               let desiredNutritions = nutritions.filter((nutrition) => {
                 if (nutrition.id === recipe.id) {
                   return nutrition.data;

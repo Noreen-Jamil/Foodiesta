@@ -19,6 +19,16 @@ input::-webkit-inner-spin-button {
 .list-group {
   background-color: #212121;
 }
+#error-msg{
+  height:60vh;
+  color:var(--white-color-light);
+  font-family: var(--text-main);
+  font-size:35px;
+
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
 #heading-and-filter-container {
   display: flex;
   flex-direction: column;
