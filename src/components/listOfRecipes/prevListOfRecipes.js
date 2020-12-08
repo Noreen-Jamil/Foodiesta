@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getRecipies, getNutritions } from "../../apiService";
+import { Link } from "react-router-dom";
 import "./listOfRecipes.css";
-import FilterComponent from "./filterComponent/filterComponent";
-import List from "./list/list";
-import { Provider , ListProvider} from "../../context";
 
 const ListOfRecipes = (props) => {
   //to show header if listOf Recipe components mounts
@@ -116,7 +114,6 @@ const ListOfRecipes = (props) => {
   let categoryFilterList = []; //category filtered list variable
   const [errorMsg, updateErrorMsg] = useState("");
 
-
   const categorySelected = (e) => {
     updateCategory(e.target.value);
     if(e.target.value === "all" && filterNutritionType === "all"){
@@ -132,6 +129,7 @@ const ListOfRecipes = (props) => {
           filterNutritionType === "all" ? updateFilteredList([...categoryFilterList]) : filteredListUpdate(e.target.value);
     }
   }
+
   //below fiunction will be called if nutrition type value is not "all". and user selected category type "all".
   // this function will show list a/c to nutrition type selected before selecting category.
   const filteredListUpdate = (e) =>{
@@ -274,37 +272,123 @@ const ListOfRecipes = (props) => {
    updateFilteredList(JSON.parse(localStorage.getItem("recipesArray")));
   }, []);
 
-  const filterVariables = {
-    category : category,
-    rangeFrom : rangeFrom,
-    rangeTo : rangeTo,
-    filterNutritionType : filterNutritionType
-  }
-  const filterMethods = {
-    categorySelected : categorySelected,
-    filterList : filterList,
-    ListUpdatedWithRangeFrom : ListUpdatedWithRangeFrom,
-    listUpdatedWithRangeTo : listUpdatedWithRangeTo
-  }
-
-  const filterVariableAndMethods = {
-    filterVariables,
-    filterMethods
-  }
-  const ListContext = {
-    filteredList,
-    nutritions
-  }
-
   return (
     <div className="list-group">
-      <Provider value = {filterVariableAndMethods}>
-        <FilterComponent />
-      </Provider>
-      { filteredList.length === 0 ? <p id="error-msg">{errorMsg}</p> : null}
-      <ListProvider value = {ListContext}>
-        <List />
-      </ListProvider>
+      <div id="heading-and-filter-container">
+        <h1 id="list-title">Recipies</h1>
+        <div id="filter-container">
+          <div id="filter-by-nutrition-container">
+            <div>
+              <span className="filter-span-text">Filter by Nutritions :</span>
+              <select
+                id="select-nutrition-type"
+                onChange={(e) => {
+                  filterList(e);
+                }}
+                className="select-nutrition-type"
+              >
+                <option value="all">All</option>
+                <option value="calories">Calories</option>
+                <option value="carbs">Carbs</option>
+                <option value="protein">Proteins</option>
+                <option value="fat">Fats</option>
+              </select>
+            </div>
+            {filterNutritionType === "all" ? null : (
+              <div id="range-container">
+                <span className="filter-span-text"> Range : </span>
+                <input
+                  id="range-from-input"
+                  className="range-input"
+                  type="number"
+                  placeholder="From"
+                  maxLength={3}
+                  value={rangeFrom}
+                  onChange={(e) => ListUpdatedWithRangeFrom(e)}
+                />
+                <input
+                  className="range-input"
+                  type="number"
+                  placeholder="To"
+                  maxLength={3}
+                  value={rangeTo}
+                  onChange={(e) => listUpdatedWithRangeTo(e)}
+                />
+              </div>
+            )}
+          </div>
+
+          <div>
+            <span className="filter-span-text">Filter by Category : </span>
+            <select className="select-nutrition-type select-category" value={category} onChange={ (e) =>{categorySelected(e)}}
+            >
+              <option value="all">All</option>
+              <option value="breakfast">Breakfast</option>
+              <option value="brunch">Brunch</option>
+              <option value="lunch">Lunch</option>
+              <option value="dinner">Dinner</option>
+              <option value="side dish">Side Dish</option>
+              <option value="dessert">Dessert</option>
+              <option value="soup">Soup</option>
+              <option value="salad">Salad</option>
+            </select>
+          </div>
+        </div>
+      </div>
+        { filteredList.length === 0 ? <p id="error-msg">{errorMsg}</p> : null}
+    
+      <ul id="list-container">
+          { filteredList.map((recipe, index) => {
+              let desiredNutritions = nutritions.filter((nutrition) => {
+                if (nutrition.id === recipe.id) {
+                  return nutrition.data;
+                }
+              });
+              return (
+                <li
+                  key={index}
+                  onClick={() => {
+                    props.onSelectItem(filteredList[index], desiredNutritions);
+                  }}
+                  className="recipe-list"
+                >
+                  <Link to="/recipeDetails">
+                    <div className="main-info">
+                      <h5 className="recipe-name">{recipe.title}</h5>
+                      <small className="recipe-id">{recipe.id}</small>
+                    </div>
+                    <div className="detail-container">
+                      <img
+                        className="image-of-dish"
+                        src={recipe.image}
+                        alt={recipe.title}
+                      />
+                      <div className="dish-details">
+                        <span>Ready In Minutes : {recipe.readyInMinutes} </span>
+                        <span> Servings : {recipe.servings}</span>
+                        <span> Health Score : {recipe.healthScore} </span>
+                        {recipe.dishType.length !== 0 ? (
+                          <span>Dish Type : {recipe.dishType.map(dishtype => dishtype).join(" ")}</span>
+                        ) : null}
+                      </div>
+                      <div className="dish-details">
+                        <span>
+                          calories : {desiredNutritions[0].data.calories}
+                        </span>
+                        <span> carbs : {desiredNutritions[0].data.carbs} </span>
+                        <span>
+                          Proteins : {desiredNutritions[0].data.protein}
+                        </span>
+                        <span> Fats : {desiredNutritions[0].data.fat} </span>
+                      </div>
+                    </div>
+                  </Link>
+                </li>
+              );
+            }) 
+          }
+     
+      </ul>
     </div>
   );
 };

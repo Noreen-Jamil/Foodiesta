@@ -3,7 +3,6 @@ import { getRecipies, getNutritions } from "../../apiService";
 import "./listOfRecipes.css";
 import FilterComponent from "./filterComponent/filterComponent";
 import List from "./list/list";
-import { Provider , ListProvider} from "../../context";
 
 const ListOfRecipes = (props) => {
   //to show header if listOf Recipe components mounts
@@ -115,7 +114,6 @@ const ListOfRecipes = (props) => {
   let filterListOfRecipes = [];
   let categoryFilterList = []; //category filtered list variable
   const [errorMsg, updateErrorMsg] = useState("");
-
 
   const categorySelected = (e) => {
     updateCategory(e.target.value);
@@ -274,37 +272,11 @@ const ListOfRecipes = (props) => {
    updateFilteredList(JSON.parse(localStorage.getItem("recipesArray")));
   }, []);
 
-  const filterVariables = {
-    category : category,
-    rangeFrom : rangeFrom,
-    rangeTo : rangeTo,
-    filterNutritionType : filterNutritionType
-  }
-  const filterMethods = {
-    categorySelected : categorySelected,
-    filterList : filterList,
-    ListUpdatedWithRangeFrom : ListUpdatedWithRangeFrom,
-    listUpdatedWithRangeTo : listUpdatedWithRangeTo
-  }
-
-  const filterVariableAndMethods = {
-    filterVariables,
-    filterMethods
-  }
-  const ListContext = {
-    filteredList,
-    nutritions
-  }
-
   return (
     <div className="list-group">
-      <Provider value = {filterVariableAndMethods}>
-        <FilterComponent />
-      </Provider>
+      <FilterComponent  />
       { filteredList.length === 0 ? <p id="error-msg">{errorMsg}</p> : null}
-      <ListProvider value = {ListContext}>
-        <List />
-      </ListProvider>
+      <List />
     </div>
   );
 };

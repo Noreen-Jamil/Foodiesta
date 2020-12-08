@@ -5,6 +5,7 @@ import { Footer } from "./components/footer/footer";
 import Welcome from "./components/welcome/welcome";
 import ListOfRecipes  from "./components/listOfRecipes/listOfRecipes";
 import RecipeDetails from "./components/recipeDetails/recipeDetails";
+import { HeadProvider } from "./context";
 
 export default function App() {
   const [headerDisplay, setHeaderDisplay] = useState("false");
@@ -18,7 +19,7 @@ export default function App() {
     updateRecipeSelection(recipe);
     updateNutritions(nutritions);
   };
-  
+
   return (
     <BrowserRouter>
         <Route path="/foodiesta" exact>
@@ -26,10 +27,12 @@ export default function App() {
         </Route>
         {headerDisplay === "false" ? null : <Header />}
         <Route path="/listOfRecipes">
-          <ListOfRecipes
-            headerState={headerState}
-            onSelectItem={showSelectedItemDetail}
-          />
+          <HeadProvider value={showSelectedItemDetail}>
+            <ListOfRecipes
+              headerState={headerState}
+            />
+          </HeadProvider>
+         
         </Route>
         <Route path="/recipeDetails">
           <RecipeDetails
@@ -42,3 +45,8 @@ export default function App() {
     </BrowserRouter>
   );
 }
+
+{/* <ListOfRecipes
+headerState={headerState}
+onSelectItem={showSelectedItemDetail}
+/> */}
