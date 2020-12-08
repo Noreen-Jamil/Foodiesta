@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/foodiesta/static/css/main.78648c4e.chunk.css",
-    "main.js": "/foodiesta/static/js/main.a6b2579e.chunk.js",
-    "main.js.map": "/foodiesta/static/js/main.a6b2579e.chunk.js.map",
+    "main.js": "/foodiesta/static/js/main.a630a1f9.chunk.js",
+    "main.js.map": "/foodiesta/static/js/main.a630a1f9.chunk.js.map",
     "runtime-main.js": "/foodiesta/static/js/runtime-main.380e9f1f.js",
     "runtime-main.js.map": "/foodiesta/static/js/runtime-main.380e9f1f.js.map",
-    "static/js/2.905b6621.chunk.js": "/foodiesta/static/js/2.905b6621.chunk.js",
-    "static/js/2.905b6621.chunk.js.map": "/foodiesta/static/js/2.905b6621.chunk.js.map",
+    "static/js/2.f01674c3.chunk.js": "/foodiesta/static/js/2.f01674c3.chunk.js",
+    "static/js/2.f01674c3.chunk.js.map": "/foodiesta/static/js/2.f01674c3.chunk.js.map",
     "index.html": "/foodiesta/index.html",
     "static/css/main.78648c4e.chunk.css.map": "/foodiesta/static/css/main.78648c4e.chunk.css.map",
-    "static/js/2.905b6621.chunk.js.LICENSE.txt": "/foodiesta/static/js/2.905b6621.chunk.js.LICENSE.txt",
+    "static/js/2.f01674c3.chunk.js.LICENSE.txt": "/foodiesta/static/js/2.f01674c3.chunk.js.LICENSE.txt",
     "static/media/brownDish.f47f673d.jpeg": "/foodiesta/static/media/brownDish.f47f673d.jpeg",
     "static/media/burger.25e1de51.jpeg": "/foodiesta/static/media/burger.25e1de51.jpeg",
     "static/media/chef.30a98484.png": "/foodiesta/static/media/chef.30a98484.png",
@@ -19,8 +19,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.380e9f1f.js",
-    "static/js/2.905b6621.chunk.js",
+    "static/js/2.f01674c3.chunk.js",
     "static/css/main.78648c4e.chunk.css",
-    "static/js/main.a6b2579e.chunk.js"
+    "static/js/main.a630a1f9.chunk.js"
   ]
 }
