@@ -18,6 +18,7 @@ input::-webkit-inner-spin-button {
 }
 .list-group {
   background-color: #212121;
+  margin-bottom:40px;
 }
 #error-msg{
   height:60vh;
